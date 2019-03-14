@@ -1,6 +1,7 @@
 
 -- maven 内嵌tomcat服务
 
+~~~xml
 <build>
         <plugins>
             <plugin>
@@ -17,3 +18,5 @@
             </plugin>
         </plugins>
 </build>
+
+~~~
