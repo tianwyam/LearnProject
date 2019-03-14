@@ -114,6 +114,10 @@ public class JavaApplication {
 		
 		try {
 			
+			// 开启服务
+			CustomH2Server.start();
+			
+			
 			// 1、加载驱动
 			Class.forName(driverClass);
 			
@@ -121,11 +125,19 @@ public class JavaApplication {
 			Connection connection = DriverManager.getConnection(jdbcURL, user, password);
 			Statement statement = connection.createStatement();
 			
-			// 3、新增
-			statement.executeUpdate("insert into user_info(id,name,age,sex) values(10,'吴倩',23,'女' )");
-			statement.executeUpdate("insert into user_info(id,name,age,sex) values(11,'梦溪',25,'女' )");
+			// 3、执行操作
+			// 3.1、先删除表，若存在
+			statement.execute("drop table user_info if exists ");
 			
-			// 4、查询
+			// 3.2、创建表
+			statement.execute("create table user_info(id int primary key, name varchar(10), age int , sex varchar(2) )");
+			
+			
+			// 4、新增
+			statement.executeUpdate("insert into user_info(id,name,age,sex) values(110,'千秋',23,'女' )");
+			statement.executeUpdate("insert into user_info(id,name,age,sex) values(111,'梦溪',25,'女' )");
+			
+			// 5、查询
 			ResultSet rs = statement.executeQuery("select * from user_info");
 			while (rs.next()) {
 				System.out.println(rs.getInt(1) + " - " + rs.getString(2) 
@@ -136,8 +148,13 @@ public class JavaApplication {
 			statement.close();
 			connection.close();
 			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			
+			// 关闭服务
+			CustomH2Server.stop();
 		}
 		
 	
