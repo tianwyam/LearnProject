@@ -34,9 +34,17 @@ public class CustomH2Server {
 		 * -pg：使用PG server模式启动
 		 */
 		try {
+			
 			System.out.println("H2数据库服务开启...");
+			
+			// TCP模式
 			server = Server.createTcpServer().start();
+			
+			// WEB模式
+			// Server.createWebServer();
+			
 			System.out.println("H2数据库服务开启成功...");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("H2数据库服务开启失败...");
