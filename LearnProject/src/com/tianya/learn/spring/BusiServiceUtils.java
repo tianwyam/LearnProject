@@ -19,6 +19,16 @@ import com.tianya.learn.spring.service.BusiService;
 public class BusiServiceUtils {
 	
 	
+	/**
+	* @Function: BusiServiceUtils.java
+	* @Description: 获取方法参数名称
+	* @param clazz 目标对象
+	* @param methodName 方法
+	* @return 此方法对应的参数名称
+	* @version: v1.0.0
+	* @author: tianwyam
+	* @date: 2019年11月3日 下午12:10:00
+	 */
 	public static String[] getMethodParamName(Class<?> clazz, String methodName)  {
 		
 		try {
@@ -35,6 +45,36 @@ public class BusiServiceUtils {
 		
 		return new String[0];
 	}
+	
+	
+	/**
+	* @Function: BusiServiceUtils.java
+	* @Description: 获取方法的参数的名称
+	* @param clazz 目标对象
+	* @param methodName 方法名称
+	* @param parameterTypes 参数类型
+	* @return 返回参数名称
+	* @version: v1.0.0
+	* @author: tianwyam
+	* @date: 2019年11月3日 下午12:18:05
+	 */
+	public static String[] getMethodParamName(Class<?> clazz, String methodName, Class<?>[] parameterTypes) {
+		try {
+			Method method = clazz.getDeclaredMethod(methodName, parameterTypes);
+			LocalVariableTableParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
+			return parameterNameDiscoverer.getParameterNames(method);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 
 	public static void main(String[] args) {
